@@ -147,30 +147,19 @@ Parse.initialize(
   'saiHkSrLOlUvI25pF6DV3nteoL9F1HPZVFlBxKqE' // This is your Javascript key
 );
 
+   async function createParseUser() {
+  const myNewObject = new Parse.Object('Players');
+  myNewObject.set("username", document.getElementById("username").value);
+  myNewObject.set("password", document.getElementById("password").value
+  try {
+    const result = await myNewObject.save();
+    // Access the Parse Object attributes using the .GET method
+    console.log('Players created', result);
+  } catch (error) {
+    console.error('Error while creating Players: ', error);
+  }
+}
    
-    // Create a new User
-    async function createParseUser() {
-      // Creates a new Parse "User" object, which is created by default in your Parse app
-      let players = new Parse.Players();
-      // Set the input values to the new "User" object
-      players.set("username", document.getElementById("username").value);
-      players.set("password", document.getElementById("password").value);
-      try {
-        // Call the save method, which returns the saved object if successful
-        players = await players.save();
-        if (user !== null) {
-          // Notify the success by getting the attributes from the "User" object, by using the get method (the id attribute needs to be accessed directly, though)
-          alert(
-            `New object created with success! ObjectId: ${
-              user.id
-            }, ${players.get("username")}`
-          );
-        }
-      } catch (error) {
-        alert(`Error: ${error.message}`);
-      }
-    }
-
     // Add on click listener to call the create parse user function
     document.getElementById("createButton").addEventListener("click", async function () {
       createParseUser();
